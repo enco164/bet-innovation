@@ -2,7 +2,8 @@
     "name": "bet-innovation/bet-innovation",
     "require": {
         "monolog/monolog": "^1.20",
-        "twbs/bootstrap": "^3.3"
+        "twbs/bootstrap": "^3.3",
+        "fortawesome/font-awesome": "^4.6"
     },
     "autoload": {
         "psr-0": {"BetInnovation": "src/"}
