@@ -5,7 +5,8 @@ use BetInnovation\Core\App;
 
 ini_set('display_errors', 'On');
 
-$app=new App();
+session_start();
 
+$app=new App();
 
 ?>

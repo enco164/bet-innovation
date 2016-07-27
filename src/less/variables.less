@@ -1,15 +1,28 @@
 // Override Bootstrap variables
-@font-family-sans-serif:  "Lucida Grande","Lucida Sans Unicode",Arial,sans-serif;
-@btn-default-border: #bbb;
-@brand-primary: #b02b2c;
-@link-color: #08c;
+@navbar-inverse-bg:                         #262F36;
+@navbar-inverse-brand-color:                #1ca8dd;
+@navbar-border-radius:                      0;
+@navbar-inverse-link-color:                 #cfd2da;
+@brand-primary: #1ca8dd;
 
-// Override Font-Awesome variables (path relative to project.css position)
-@fa-font-path: "../bower_components/font-awesome/fonts";
+  // Override Font-Awesome variables (path relative to project.css position)
+@fa-font-path: "../../vendor/fortawesome/font-awesome/fonts";
 
 //Map Bootstrap variables to myproject specific names
 @my-customname-float-breakpoint: @grid-float-breakpoint;
 @theme-color: @brand-primary;
 
 //Project specific variables
-@my-favourite-color: rgb(228, 1, 1);
+@my-favourite-color: rgb(228, 1, 25);
+
+.cell {
+  &-number {
+    text-align: right;
+  }
+  &-string {
+    text-align: left;
+  }
+  &-date {
+    text-align: right;
+  }
+}

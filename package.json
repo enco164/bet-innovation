@@ -1,0 +1,24 @@
+{
+  "name": "bet-innovation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enco164/bet-innovation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enco164/bet-innovation/issues"
+  },
+  "homepage": "https://github.com/enco164/bet-innovation#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.1.0",
+    "gulp-watch": "^4.3.9"
+  }
+}
