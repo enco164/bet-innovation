@@ -24,7 +24,7 @@ abstract class View
 
             <title>BetInnovation</title>
 
-            <link rel='stylesheet' href="content/styles/style.css">
+            <link rel='stylesheet' href="/content/styles/style.css">
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>
@@ -32,10 +32,10 @@ abstract class View
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="content/js/jquery-3.1.0.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
-            <script src="content/js/bootstrap.min.js"></script>
-            <script src="content/js/Chart.js"></script>
+            <script src="/content/js/bootstrap.min.js"></script>
+            <script src="/content/js/Chart.js"></script>
         </head>
         <body>
     <?php
@@ -63,16 +63,39 @@ abstract class View
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
 
-                    <?php if ($viewBag['navActiveLink'] == 'HOME') { ?>
-                        <li class='active'><a href="/">Home</a></li>
-                    <?php } else { ?>
-                        <li><a href="/">Home</a></li>
-                    <?php } ?>
+                        <li
+                            <?php if ($viewBag['navActiveLink'] == 'HOME') { ?>
+                                class='active'
+                            <?php } ?>
+                        ><a href="/">Home</a></li>
 
-                        <li><a href="#">Uplate i isplate</a></li>
-                        <li><a href="#">Stanja</a></li>
-                        <li><a href="#">Stanja po danima</a></li>
-                        <li><a href="#">Stanja po mesecima</a></li>
+
+                        <li
+                            <?php if ($viewBag['navActiveLink'] == 'UPLATE_ISPLATE') { ?>
+                                class='active'
+                            <?php } ?>
+                        ><a href="/Monitoring/uplateIsplate">Uplate i isplate</a></li>
+
+
+                        <li
+                            <?php if ($viewBag['navActiveLink'] == 'STANJA') { ?>
+                                class='active'
+                            <?php } ?>
+                        ><a href="/Monitoring/stanja">Stanja</a></li>
+
+
+                        <li
+                            <?php if ($viewBag['navActiveLink'] == 'STANJA_PO_DANIMA') { ?>
+                                class='active'
+                            <?php } ?>
+                        ><a href="/Monitoring/stanjaPoDanima">Stanja po danima</a></li>
+
+
+                        <li
+                            <?php if ($viewBag['navActiveLink'] == 'STANJA_PO_MESECIMA') { ?>
+                                class='active'
+                            <?php } ?>
+                        ><a href="/Monitoring/stanjaPoMesecima">Stanja po mesecima</a></li>
 
                     </ul>
 
