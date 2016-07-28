@@ -8,5 +8,4 @@ ini_set('display_errors', 'On');
 session_start();
 
 $app=new App();
-
 ?>

@@ -10,6 +10,7 @@ namespace BetInnovation\Controllers;
 
 use BetInnovation\Core\Controller;
 use BetInnovation\Views\Login\Index;
+use PDOException;
 
 class Login extends Controller
 {
@@ -33,11 +34,23 @@ class Login extends Controller
         if (isset($_POST['username']) && isset($_POST['password'])) {
             // TODO: Proveri konekciju na bazu
 //            $this->forceDestroySession();
-            session_start();
-            $_SESSION['username'] = $_POST['username'];
-            $_SESSION['password'] = $_POST['password'];
-            header('Location: /');
-            die();
+
+            $dsn = "pgsql:host=localhost;dbname=bet-innovation;user=".$_POST['username'].";password=".$_POST['password'];
+            try {
+                $connection = new \PDO($dsn);
+                if($connection) {
+                    session_start();
+                    $_SESSION['username'] = $_POST['username'];
+                    $_SESSION['password'] = $_POST['password'];
+                    header('Location: /');
+                    die();
+                }
+            }
+            catch (PDOException $e) {
+                header('Location: /Login');
+                die();
+            }
+
 
         } else {
 //            header('Location: /Login');

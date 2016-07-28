@@ -13,6 +13,9 @@ use BetInnovation\Views\View;
 
 class Index extends View
 {
+    private function formatDate($d) {
+        return str_replace(' 00:00:00', '', $d);
+    }
     public function render($viewBag)
     {
         $this->head();
@@ -26,28 +29,38 @@ class Index extends View
                     <table class="table table-hover table-striped table-bordered" >
                         <thead>
                         <tr>
-                            <th class="cell-string">string</th>
-                            <th class="cell-date">date</th>
-                            <th class="cell-number">number</th>
+                            <?php
+                            foreach ($viewBag['headers'] as $header) {
+                                ?>
+                                <th>
+                                    <?php echo $header['name']; ?>
+                                </th>
+                                <?php
+                            }
+                            ?>
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <td class="cell-string">lorem</td>
-                            <td class="cell-date">02.22.2016 21:12:32</td>
-                            <td class="cell-number">3</td>
-                        </tr>
-                        <tr>
-                            <td class="cell-string">ipsum</td>
-                            <td class="cell-date">02.22.2016 21:12:32</td>
-                            <td class="cell-number">6</td>
-                        </tr>
-                        <tr>
-                            <td class="cell-string">dolor</td>
-                            <td class="cell-date">02.22.2016 21:12:32</td>
-                            <td class="cell-number">9</td>
-                        </tr>
+                        <?php
+                        foreach ($viewBag['data'] as $row) {
+                            echo "<tr>";
+                            foreach ($viewBag['headers'] as $header) {
+                                ?>
+                                <td class="<?php echo $header['native_type']; ?>">
+                                    <?php
+                                    if($header['native_type']==='timestamptz') {
+                                        if($row[$header['name']])
+//                                            echo date("d.m.Y H:i:s", strtotime($row[$header['name']]));
+                                            echo $this->formatDate(date("d.m.Y H:i:s", strtotime($row[$header['name']])));
+                                    }
+                                    else
+                                        echo $row[$header['name']]; ?>
+                                </td>
+                                <?php
+                            }
+                            echo "</tr>";
+                        }
+                        ?>
                         </tbody>
                     </table>
                 </div>
