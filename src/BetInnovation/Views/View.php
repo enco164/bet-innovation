@@ -11,6 +11,7 @@ namespace BetInnovation\Views;
 
 abstract class View
 {
+    protected $viewBag;
     abstract public function render($viewBag);
 
     public function head()
@@ -25,19 +26,23 @@ abstract class View
             <title>BetInnovation</title>
 
             <link rel='stylesheet' href="/content/styles/style.css">
+            <link rel='stylesheet' href="/content/styles/bootstrap-datetimepicker.css">
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="content/js/jquery-3.1.0.min.js"></script>
+            <script src="/content/js/jquery-2.1.4.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="/content/js/moment.min.js"></script>
             <script src="/content/js/bootstrap.min.js"></script>
+            <script src="/content/js/bootstrap-datetimepicker.min.js"></script>
             <script src="/content/js/Chart.js"></script>
         </head>
-        <body>
+        <body <?php if(isset($this->viewBag['body-background']) && $this->viewBag['body-background'] === true) echo "class='body-background'";?>>
     <?php
     }
 
@@ -113,6 +118,12 @@ abstract class View
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <?php
+    }
+
+    public function filters(){
+        ?>
+        <p>asdf</p>
         <?php
     }
 

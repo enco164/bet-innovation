@@ -25,7 +25,7 @@ class Login extends Controller
     public function index()
     {
 
-        $this->view->render(['notAuth' => true]);
+        $this->view->render(['notAuth' => true, 'body-background' => true]);
     }
 
     public function login()

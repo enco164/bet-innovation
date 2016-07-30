@@ -9,6 +9,7 @@
 namespace BetInnovation\Views\Home;
 
 
+use BetInnovation\Core\TableGenerator;
 use BetInnovation\Views\View;
 
 class Index extends View
@@ -25,45 +26,48 @@ class Index extends View
         <div class='container-fluid'>
             <h1>Home</h1>
             <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered" >
-                        <thead>
-                        <tr>
-                            <?php
-                            foreach ($viewBag['headers'] as $header) {
-                                ?>
-                                <th>
-                                    <?php echo $header['name']; ?>
-                                </th>
-                                <?php
-                            }
-                            ?>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        foreach ($viewBag['data'] as $row) {
-                            echo "<tr>";
-                            foreach ($viewBag['headers'] as $header) {
-                                ?>
-                                <td class="<?php echo $header['native_type']; ?>">
-                                    <?php
-                                    if($header['native_type']==='timestamptz') {
-                                        if($row[$header['name']])
-//                                            echo date("d.m.Y H:i:s", strtotime($row[$header['name']]));
-                                            echo $this->formatDate(date("d.m.Y H:i:s", strtotime($row[$header['name']])));
-                                    }
-                                    else
-                                        echo $row[$header['name']]; ?>
-                                </td>
-                                <?php
-                            }
-                            echo "</tr>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
+                <?php
+                    $tb = new TableGenerator($viewBag['headers'], $viewBag['data']);
+                ?>
+<!--                <div class="table-responsive">-->
+<!--                    <table class="table table-hover table-striped table-bordered" >-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            --><?php
+//                            foreach ($viewBag['headers'] as $header) {
+//                                ?>
+<!--                                <th>-->
+<!--                                    --><?php //echo $header['name']; ?>
+<!--                                </th>-->
+<!--                                --><?php
+//                            }
+//                            ?>
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        --><?php
+//                        foreach ($viewBag['data'] as $row) {
+//                            echo "<tr>";
+//                            foreach ($viewBag['headers'] as $header) {
+//                                ?>
+<!--                                <td class="--><?php //echo $header['native_type']; ?><!--">-->
+<!--                                    --><?php
+//                                    if($header['native_type']==='timestamptz') {
+//                                        if($row[$header['name']])
+////                                            echo date("d.m.Y H:i:s", strtotime($row[$header['name']]));
+//                                            echo $this->formatDate(date("d.m.Y H:i:s", strtotime($row[$header['name']])));
+//                                    }
+//                                    else
+//                                        echo $row[$header['name']]; ?>
+<!--                                </td>-->
+<!--                                --><?php
+//                            }
+//                            echo "</tr>";
+//                        }
+//                        ?>
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
             </div>
             <div class='row'>
                 <div class="col-md-4">
