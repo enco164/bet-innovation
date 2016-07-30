@@ -68,7 +68,7 @@ class Monitoring extends Controller
     public function executeForAllTerminals($query) {
         $data = [];
         for ($i=2; $i<=8; $i++) {
-            $stmt = $this->executeQuery($query, 2);
+            $stmt = $this->executeQuery($query, $i);
             $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $data = array_merge_recursive($data, $tmp);
         }
@@ -138,14 +138,28 @@ class Monitoring extends Controller
     public function stanja()
     {
         $query = "select * from monitoring.get_accounting_totals(:serialNum, :terminal, :datetimeFrom, :datetimeTo)";
-        $stmt = $this->executeQuery($query, false);
-        $headers = $this->prepareHeaders($stmt);
+
+        if((!isset($_POST['terminal'])) || (intval($_POST['terminal']) != -1)) {
+            $stmt = $this->executeQuery($query, false);
+            $headers = $this->prepareHeaders($stmt);
+
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else {
+            $stmt = $this->executeQuery($query, 1);
+            $headers = $this->prepareHeaders($stmt);
+
+            $dataForFirst = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $dataForRest = $this->executeForAllTerminals($query);
+
+            $data = array_merge_recursive($dataForFirst, $dataForRest);
+        }
 
         $queryPom = "select * from monitoring.get_accounting_totals(null, null, null, null)";
         $uniqueNames = $this->uniqueNamesArray($queryPom);
 
         $this->model = [
-            'data'=>$stmt->fetchAll(PDO::FETCH_ASSOC),
+            'data'=>$data,
             'headers'=>$headers,
             'uniqueNames' => $uniqueNames
         ];
@@ -154,16 +168,29 @@ class Monitoring extends Controller
 
     public function stanjaPoDanima()
     {
-
         $query = "select * from monitoring.get_accounting_totals_by_day(:serialNum, :terminal, :datetimeFrom, :datetimeTo)";
-        $stmt = $this->executeQuery($query, false);
-        $headers = $this->prepareHeaders($stmt);
+
+        if((!isset($_POST['terminal'])) || (intval($_POST['terminal']) != -1)) {
+            $stmt = $this->executeQuery($query, false);
+            $headers = $this->prepareHeaders($stmt);
+
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else {
+            $stmt = $this->executeQuery($query, 1);
+            $headers = $this->prepareHeaders($stmt);
+
+            $dataForFirst = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $dataForRest = $this->executeForAllTerminals($query);
+
+            $data = array_merge_recursive($dataForFirst, $dataForRest);
+        }
 
         $queryPom = "select * from monitoring.get_accounting_totals_by_day(null, null, null, null)";
         $uniqueNames = $this->uniqueNamesArray($queryPom);
 
         $this->model = [
-            'data'=>$stmt->fetchAll(PDO::FETCH_ASSOC),
+            'data'=>$data,
             'headers'=>$headers,
             'uniqueNames' => $uniqueNames
         ];

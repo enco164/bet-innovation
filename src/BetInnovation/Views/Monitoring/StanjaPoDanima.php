@@ -29,6 +29,8 @@ class StanjaPoDanima extends View
                     <?php new FilterGenerator([
                         ["type"=>"select", "label"=> "Naziv", "name"=>"serialNum", "values"=>$viewBag['uniqueNames'] ],
                         ["type"=>"select", "label"=> "Terminal", "name"=>"terminal", "values"=>[
+                            ["", "Svi zbirno"],
+                            ["-1", "Svaki odvojeno"],
                             ["1", "1"],
                             ["2", "2"],
                             ["3", "3"],

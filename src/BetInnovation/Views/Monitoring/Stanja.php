@@ -24,11 +24,13 @@ class Stanja extends View
         ?>
         <div class='container'>
             <div class='row'>
-                <form action='/Monitoring/uplateIsplate' method='post' class="form-inline">
+                <form action='/Monitoring/stanja' method='post' class="form-inline">
 
                     <?php new FilterGenerator([
                         ["type"=>"select", "label"=> "Naziv", "name"=>"serialNum", "values"=>$viewBag['uniqueNames'] ],
                         ["type"=>"select", "label"=> "Terminal", "name"=>"terminal", "values"=>[
+                            ["", "Svi zbirno"],
+                            ["-1", "Svaki odvojeno"],
                             ["1", "1"],
                             ["2", "2"],
                             ["3", "3"],
