@@ -1,12 +1,12 @@
 // Override Bootstrap variables
-@navbar-inverse-bg:                         #262F36;
+@navbar-inverse-bg:                         rgba(0,0,0,0.8);
 @navbar-inverse-brand-color:                #1ca8dd;
 @navbar-border-radius:                      0;
 @navbar-inverse-link-color:                 #cfd2da;
 @brand-primary: #1ca8dd;
 
   // Override Font-Awesome variables (path relative to project.css position)
-@fa-font-path: "../../vendor/fortawesome/font-awesome/fonts";
+@fa-font-path: "./fonts";
 
 //Map Bootstrap variables to myproject specific names
 @my-customname-float-breakpoint: @grid-float-breakpoint;
@@ -37,4 +37,15 @@
 
 .int4, .numeric {
   text-align: right;
+}
+.body-background {
+  background-image: url("/content/images/bet-betting-casino.jpg");
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.login-form {
+  background-color: rgba(0,0,0,0.5);
+  padding: 30px;
+  color: white;
 }

@@ -16,12 +16,13 @@ class Index extends View
 
     public function render($viewBag)
     {
+        $this->viewBag = $viewBag;
         $this->head();
         $this->header($viewBag);
 
         echo "<div class='container'>
     <div class='row'>
-        <form action='/Login/login' method='post' class='col-md-4 col-md-push-4'>
+        <form action='/Login/login' method='post' class='col-md-4 col-md-push-4 login-form'>
             <div class='form-group'>
                 <label for='username'>Username</label>
                 <input type='text' name='username' class='form-control' id='username'>
