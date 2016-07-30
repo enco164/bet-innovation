@@ -9,7 +9,7 @@ use PDOException;
 class Home extends Controller{
 
     private $view;
-    private $model;
+    public $model;
 
     /**
      * Home constructor.

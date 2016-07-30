@@ -61,7 +61,7 @@ abstract class View
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Happy Bet</a>
+                    <a class="navbar-brand" href="/">Happy Bet</a>
                 </div>
 
                 <?php if (!isset($viewBag['notAuth'])) { ?>

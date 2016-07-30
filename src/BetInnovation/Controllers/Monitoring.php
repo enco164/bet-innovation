@@ -116,6 +116,7 @@ class Monitoring extends Controller
         catch (PDOException $e) {
             echo $e->getMessage();
         }
+        return null;
     }
 
     public function uplateIsplate()

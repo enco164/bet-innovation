@@ -1,9 +1,11 @@
 // Override Bootstrap variables
 @navbar-inverse-bg:                         rgba(0,0,0,0.8);
-@navbar-inverse-brand-color:                #1ca8dd;
+@navbar-inverse-brand-color:                white;
 @navbar-border-radius:                      0;
 @navbar-inverse-link-color:                 #cfd2da;
-@brand-primary: #1ca8dd;
+@brand-primary: rgba(44, 111, 119, 1);
+@navbar-margin-bottom: 0;
+
 
   // Override Font-Awesome variables (path relative to project.css position)
 @fa-font-path: "./fonts";
@@ -41,11 +43,14 @@
 .body-background {
   background-image: url("/content/images/bet-betting-casino.jpg");
   background-repeat: no-repeat;
+  background-position: 50% 50%;
   background-size:cover;
 }
 
 .login-form {
-  background-color: rgba(0,0,0,0.5);
-  padding: 30px;
+  margin-top: 32px;
+  background-color: rgba(0,0,0,0.6);
+  padding: 30px 30px 15px 30px;
   color: white;
 }
+

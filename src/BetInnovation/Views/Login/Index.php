@@ -19,26 +19,26 @@ class Index extends View
         $this->viewBag = $viewBag;
         $this->head();
         $this->header($viewBag);
+        ?>
+        <div class='container'>
+            <div class='row'>
+                <form action='/Login/login' method='post' class='col-md-4 col-sm-6 col-md-push-4 col-sm-push-3 login-form'>
+                    <div class='form-group'>
+                        <label for='username'>Username</label>
+                        <input type='text' name='username' class='form-control' id='username'>
+                    </div>
+                    <div class='form-group'>
+                        <label for='password'>Password</label>
+                        <input type='password' name="password" class='form-control' id='password'>
+                    </div>
+                    <div class='form-group' style='text-align: right'>
+                        <input type='submit' class='btn btn-primary' value='Uloguj se'>
+                    </div>
+                </form>
 
-        echo "<div class='container'>
-    <div class='row'>
-        <form action='/Login/login' method='post' class='col-md-4 col-md-push-4 login-form'>
-            <div class='form-group'>
-                <label for='username'>Username</label>
-                <input type='text' name='username' class='form-control' id='username'>
             </div>
-            <div class='form-group'>
-                <label for='password'>Password</label>
-                <input type='password' name=\"password\" class='form-control' id='password'>
-            </div>
-            <div class='form-group' style='text-align: right'>
-                <input type='submit' class='btn btn-primary' value='Uloguj se'>
-            </div>
-        </form>
-
-    </div>
-</div>
-";
+        </div>
+        <?php
 
         $this->footer();
     }

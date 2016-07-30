@@ -21,12 +21,12 @@ class FilterGenerator
             <div class="form-group">
                 <label>
                     <?php
-                    echo $filter['label'];
+                    echo $filter['label'] . "<br/>";
 
                     switch ($filter['type']) {
                         case 'select':
                             ?>
-                            <select name='<?php echo $filter['name']; ?>' class='form-control' value="<?php if(isset($_POST[$filter['name']]))
+                            <select name='<?php echo $filter['name']; ?>' class='form-control input-sm' value="<?php if(isset($_POST[$filter['name']]))
                             echo $_POST[$filter['name']];
                             ?>">
                                 <option value="">--Izaberi--</option>
@@ -45,7 +45,7 @@ class FilterGenerator
                             break;
                         case 'date': {
                             ?>
-                        <div class='input-group date' id='<?php echo $filter['name']; ?>'>
+                        <div class='input-group input-group-sm date' id='<?php echo $filter['name']; ?>'>
                             <input type='text' class="form-control"
                                    name="<?php echo $filter['name']; ?>"
                                    <?php if(isset($_POST[$filter['name']])) {
@@ -71,7 +71,7 @@ class FilterGenerator
                         break;
                             case 'time': {
                             ?>
-                        <div class='input-group date' id='<?php echo $filter['name']; ?>'>
+                        <div class='input-group input-group-sm date' id='<?php echo $filter['name']; ?>'>
                             <input type='text' class="form-control"
                                    name="<?php echo $filter['name']; ?>"
                                 <?php if(isset($_POST[$filter['name']])) {
