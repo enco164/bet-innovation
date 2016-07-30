@@ -121,7 +121,7 @@ class Monitoring extends Controller
     public function uplateIsplate()
     {
         $query = "select * from monitoring.get_accounting_pay_in_out(:serialNum, :terminal, :datetimeFrom, :datetimeTo)";
-        $stmt = $this->executeQuery($query);
+        $stmt = $this->executeQuery($query, false);
         $headers = $this->prepareHeaders($stmt);
 
         $queryPom = "select * from monitoring.get_accounting_pay_in_out(null, null, null, null)";
@@ -138,7 +138,7 @@ class Monitoring extends Controller
     public function stanja()
     {
         $query = "select * from monitoring.get_accounting_totals(:serialNum, :terminal, :datetimeFrom, :datetimeTo)";
-        $stmt = $this->executeQuery($query);
+        $stmt = $this->executeQuery($query, false);
         $headers = $this->prepareHeaders($stmt);
 
         $queryPom = "select * from monitoring.get_accounting_totals(null, null, null, null)";
@@ -156,7 +156,7 @@ class Monitoring extends Controller
     {
 
         $query = "select * from monitoring.get_accounting_totals_by_day(:serialNum, :terminal, :datetimeFrom, :datetimeTo)";
-        $stmt = $this->executeQuery($query);
+        $stmt = $this->executeQuery($query, false);
         $headers = $this->prepareHeaders($stmt);
 
         $queryPom = "select * from monitoring.get_accounting_totals_by_day(null, null, null, null)";
