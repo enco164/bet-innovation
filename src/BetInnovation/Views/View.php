@@ -27,6 +27,9 @@ abstract class View
 
             <link rel='stylesheet' href="/content/styles/style.css">
             <link rel='stylesheet' href="/content/styles/bootstrap-datetimepicker.css">
+            <link rel='stylesheet' href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+            <link rel='stylesheet' href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
+
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>
@@ -41,9 +44,13 @@ abstract class View
             <script src="/content/js/bootstrap.min.js"></script>
             <script src="/content/js/bootstrap-datetimepicker.min.js"></script>
             <script src="/content/js/Chart.js"></script>
+            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js"></script>
         </head>
         <body <?php if(isset($this->viewBag['body-background']) && $this->viewBag['body-background'] === true) echo "class='body-background'";?>>
-    <?php
+        <?php
     }
 
     public function header($viewBag)
@@ -108,16 +115,29 @@ abstract class View
                         <li>
                             <a href="/Login/logout">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                Logout
+                                Izloguj se
                             </a>
                         </li>
                     </ul>
-                <?php
-                }
-                ?>
+                    <?php
+                    }
+                    ?>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+
+    <script>
+        $(document).ready(function() {
+            $('#loading').addClass('hidden');
+            $('#content').removeClass('hidden');
+        } );
+    </script>
+        <div id="loading" style="text-align: center; height: calc(100vh - 55px); line-height: calc(100vh - 55px);font-size: 30px">
+            <i class="fa fa-cog fa-spin fa-fw"></i><span>Loading</span>
+        </div>
+        <div id="content" class="hidden" style="padding-bottom: 32px">
+
+
         <?php
     }
 
@@ -130,8 +150,9 @@ abstract class View
     public function footer()
     {
         ?>
+        </div><!-- end #content-->
         </body>
         </html>
-    <?php
+        <?php
     }
 }

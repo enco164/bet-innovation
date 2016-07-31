@@ -46,23 +46,18 @@ class UplateIsplate extends View
                         ["type"=>"time", "label"=> "Vreme do", "name"=>"datetimeToTime"]
                     ]);?>
 
-                    <div class='form-group' style='text-align: right'>
-                        <input type='submit' class='btn btn-primary btn-sm' value='Prikazi'>
-                    </div>
                 </form>
 
             </div>
         </div>
 
         <div class='container-fluid'>
-            <div class="row">
-                <?php
-                if(count($viewBag['data']) > 0)
-                    new TableGenerator($viewBag['headers'], $viewBag['data']);
-                else
-                    echo "<p style='text-align: center'>Nema rezultata</p>"
-                ?>
-            </div>
+            <?php
+            if(count($viewBag['data']) > 0)
+                new TableGenerator($viewBag['headers'], $viewBag['data']);
+            else
+                echo "<p style='text-align: center'>Nema rezultata</p>"
+            ?>
         </div>
         <?php
         $this->footer();

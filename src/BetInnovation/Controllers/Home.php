@@ -25,25 +25,25 @@ class Home extends Controller{
                 $query = "select * from monitoring.get_accounting_totals(null, null, null, null)";
                 $stmt = $connection->prepare($query);
                 $stmt->execute();
+
+                $headers = [];
+
+                $cnt_columns = $stmt->columnCount();
+                for($i = 0; $i < $cnt_columns; $i++) {
+                    $metadata = $stmt->getColumnMeta($i);
+                    $headers[]=['native_type'=>$metadata['native_type'], 'name'=>$metadata['name']];
+                }
+//        var_dump($headers);
+                $this->model = [
+                    'navActiveLink'=>'HOME',
+                    'data'=>$stmt->fetchAll(PDO::FETCH_ASSOC),
+                    'headers'=>$headers
+                ];
             }
         }
         catch (PDOException $e) {
             echo $e->getMessage();
         }
-
-        $headers = [];
-
-        $cnt_columns = $stmt->columnCount();
-        for($i = 0; $i < $cnt_columns; $i++) {
-            $metadata = $stmt->getColumnMeta($i);
-            $headers[]=['native_type'=>$metadata['native_type'], 'name'=>$metadata['name']];
-        }
-//        var_dump($headers);
-        $this->model = [
-            'navActiveLink'=>'HOME',
-            'data'=>$stmt->fetchAll(PDO::FETCH_ASSOC),
-            'headers'=>$headers
-        ];
     }
 
     public function index(){

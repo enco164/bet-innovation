@@ -18,8 +18,8 @@ class TableGenerator
     public function __construct($headers, $data)
     {
         ?>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-bordered" >
+        <div class="">
+            <table id="table" class="table table-hover table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <?php
@@ -56,6 +56,11 @@ class TableGenerator
                 </tbody>
             </table>
         </div>
+        <script>
+            $(document).ready(function() {
+                $('#table').DataTable();
+            } );
+        </script>
         <?php
     }
 }

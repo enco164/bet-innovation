@@ -22,9 +22,30 @@ class Stanja extends View
         $this->head();
         $this->header($viewBag);
         ?>
+
+        <a class="btn btn-default hidden-lg hidden-md pull-right"
+           role="button" data-toggle="collapse"
+           href="#filters"
+           aria-expanded="false" aria-controls="filters" style="margin: 8px 8px">
+            <i class="fa fa-filter" aria-hidden="true"></i>
+            <span>Filteri</span>
+        </a>
+        <script>
+            $(window).bind('resize load', function() {
+                if ($(this).width() < 767) {
+                    $('#filters').removeClass('in');
+                    $('#filters').addClass('out');
+                } else {
+                    $('#filters').removeClass('out');
+                    $('#filters').addClass('in');
+                }
+            });
+
+        </script>
+
         <div class='container-fluid'>
             <div class='row'>
-                <form action='/Monitoring/stanja' method='post' class="form-inline" style="padding: 16px">
+                <form id="filters" action='/Monitoring/stanja' method='post' class="form-inline collapse" style="padding: 16px">
 
                     <?php new FilterGenerator([
                         ["type"=>"select", "label"=> "Naziv", "name"=>"serialNum", "values"=>$viewBag['uniqueNames'] ],
@@ -47,23 +68,18 @@ class Stanja extends View
                         ["type"=>"time", "label"=> "Vreme do", "name"=>"datetimeToTime"]
                     ]);?>
 
-                    <div class='form-group' style='text-align: right'>
-                        <input type='submit' class='btn btn-primary btn-sm' value='Prikazi'>
-                    </div>
                 </form>
 
             </div>
         </div>
+        <div class="container-fluid ">
+            <?php
+            if(count($viewBag['data']) > 0)
+                new TableGenerator($viewBag['headers'], $viewBag['data']);
+            else
+                echo "<p style='text-align: center'>Nema rezultata</p>"
+            ?>
 
-        <div class='container-fluid'>
-            <div class="row">
-                <?php
-                if(count($viewBag['data']) > 0)
-                    new TableGenerator($viewBag['headers'], $viewBag['data']);
-                else
-                    echo "<p style='text-align: center'>Nema rezultata</p>"
-                ?>
-            </div>
         </div>
         <?php
         $this->footer();

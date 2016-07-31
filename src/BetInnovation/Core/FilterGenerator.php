@@ -98,7 +98,13 @@ class FilterGenerator
                     ?>
                 </label>
             </div>
+
             <?php
         }
+        ?>
+        <div class='form-group' style='vertical-align: baseline !important;'>
+            <input type='submit' class='btn btn-primary btn-sm' value='Prikaži'>
+        </div>
+        <?php
     }
 }
