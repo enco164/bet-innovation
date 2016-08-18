@@ -102,7 +102,48 @@ class FilterGenerator
             <?php
         }
         ?>
+
+        <script>
+            function myFunction() {
+                var formElement = document.getElementById("filterForm");
+                var elements = formElement.elements;
+
+                formElement.reset();
+
+                for(i=0; i<elements.length; i++) {
+
+                    field_type = elements[i].type.toLowerCase();
+
+                    switch(field_type) {
+
+                        case "text":
+                        case "password":
+                        case "textarea":
+                        case "hidden":
+                            elements[i].value = "";
+                            break;
+
+                        case "radio":
+                        case "checkbox":
+                            if (elements[i].checked) {
+                                elements[i].checked = false;
+                            }
+                            break;
+
+                        case "select-one":
+                        case "select-multi":
+                            elements[i].selectedIndex = -1;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+        </script>
+
         <div class='form-group' style='vertical-align: baseline !important;'>
+            <input type="button" class='btn btn-danger btn-sm' onclick="myFunction()" value="Reset">
             <input type='submit' class='btn btn-primary btn-sm' value='Prikaži'>
         </div>
         <?php

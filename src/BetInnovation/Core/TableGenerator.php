@@ -45,6 +45,9 @@ class TableGenerator
                                 if($row[$header['name']])
                                     echo $this->formatDate(date("d.m.Y H:i:s", strtotime($row[$header['name']])));
                             }
+                            else if($header['native_type']==='numeric') {
+                                echo number_format($row[$header['name']], 2, ',', '.');
+                            }
                             else
                                 echo $row[$header['name']]; ?>
                         </td>
@@ -58,7 +61,12 @@ class TableGenerator
         </div>
         <script>
             $(document).ready(function() {
-                $('#table').DataTable();
+                $('#table').DataTable( {
+                    "searching": false,
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Serbian.json"
+                    }
+                });
             } );
         </script>
         <?php
