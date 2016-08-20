@@ -25,82 +25,11 @@ class Index extends View
         ?>
         <div class='container-fluid'>
             <h1>Home</h1>
-            <div class="row">
-                <?php
-                    $tb = new TableGenerator($viewBag['headers'], $viewBag['data']);
-                ?>
-<!--                <div class="table-responsive">-->
-<!--                    <table class="table table-hover table-striped table-bordered" >-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            --><?php
-//                            foreach ($viewBag['headers'] as $header) {
-//                                ?>
-<!--                                <th>-->
-<!--                                    --><?php //echo $header['name']; ?>
-<!--                                </th>-->
-<!--                                --><?php
-//                            }
-//                            ?>
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        --><?php
-//                        foreach ($viewBag['data'] as $row) {
-//                            echo "<tr>";
-//                            foreach ($viewBag['headers'] as $header) {
-//                                ?>
-<!--                                <td class="--><?php //echo $header['native_type']; ?><!--">-->
-<!--                                    --><?php
-//                                    if($header['native_type']==='timestamptz') {
-//                                        if($row[$header['name']])
-////                                            echo date("d.m.Y H:i:s", strtotime($row[$header['name']]));
-//                                            echo $this->formatDate(date("d.m.Y H:i:s", strtotime($row[$header['name']])));
-//                                    }
-//                                    else
-//                                        echo $row[$header['name']]; ?>
-<!--                                </td>-->
-<!--                                --><?php
-//                            }
-//                            echo "</tr>";
-//                        }
-//                        ?>
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
-            </div>
             <div class='row'>
-                <div class="col-md-4">
-                    <canvas id="barChart" class="col-md-4"></canvas>
-                    <script>
-                        jQuery(document).ready(function(){
-                            var ctx = document.getElementById("barChart");
-                            var pieChart = new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                                    datasets: [{
-                                        label: '# of Votes',
-                                        data: [12, 19, 3, 5, 2, 3]
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero:true
-                                            }
-                                        }]
-                                    }
-                                }
-                            });
-                        });
-
-                    </script>
+                <div class="col-md-12">
+                    <p class="lead">Primer grafikona (nisu uvezani sa stvarnim podacima)</p>
                 </div>
-
-
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <canvas id="pieChart"></canvas>
                     <script>
                         jQuery(document).ready(function(){
@@ -110,7 +39,7 @@ class Index extends View
                                 data:{
                                     labels: [
                                         "Red",
-                                        "Green",
+                                        "Blue",
                                         "Yellow"
                                     ],
                                     datasets: [
@@ -133,16 +62,16 @@ class Index extends View
                     </script>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <canvas id="lineChart"></canvas>
                     <script>
                         jQuery(document).ready(function(){
                             var ctx = document.getElementById("lineChart");
                             var data = {
-                                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                                labels: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul"],
                                 datasets: [
                                     {
-                                        label: "Line Chart",
+                                        label: "Masina 1",
                                         fill: false,
                                         lineTension: 0.1,
                                         backgroundColor: "rgba(75,192,192,0.4)",
@@ -160,7 +89,95 @@ class Index extends View
                                         pointHoverBorderWidth: 2,
                                         pointRadius: 1,
                                         pointHitRadius: 10,
-                                        data: [65, 59, 80, 81, 56, 55, 40],
+                                        data: [15, 39, 47, 51, 36, 15, 50],
+                                        spanGaps: false,
+                                    },
+                                    {
+                                        label: "Masina 2",
+                                        fill: false,
+                                        lineTension: 0.1,
+                                        backgroundColor: "rgba(225,85,84,0.4)",
+                                        borderColor: "rgba(225,85,84,1)",
+                                        borderCapStyle: 'butt',
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        borderJoinStyle: 'miter',
+                                        pointBorderColor: "rgba(225,85,84,1)",
+                                        pointBackgroundColor: "#fff",
+                                        pointBorderWidth: 1,
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: "rgba(225,85,84,1)",
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointHoverBorderWidth: 2,
+                                        pointRadius: 1,
+                                        pointHitRadius: 10,
+                                        data: [95, 29, 34, 11, 5, 52, 10],
+                                        spanGaps: false,
+                                    },
+                                    {
+                                        label: "Masina 3",
+                                        fill: false,
+                                        lineTension: 0.1,
+                                        backgroundColor: "rgba(225,188,47,0.4)",
+                                        borderColor: "rgba(225,188,47,1)",
+                                        borderCapStyle: 'butt',
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        borderJoinStyle: 'miter',
+                                        pointBorderColor: "rgba(225,188,47,1)",
+                                        pointBackgroundColor: "#fff",
+                                        pointBorderWidth: 1,
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: "rgba(225,188,47,1)",
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointHoverBorderWidth: 2,
+                                        pointRadius: 1,
+                                        pointHitRadius: 10,
+                                        data: [12, 22, 95, 33, 57, 21, 49],
+                                        spanGaps: false,
+                                    },
+                                    {
+                                        label: "Masina 4",
+                                        fill: false,
+                                        lineTension: 0.1,
+                                        backgroundColor: "rgba(59,178,115,0.4)",
+                                        borderColor: "rgba(59,178,115,1)",
+                                        borderCapStyle: 'butt',
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        borderJoinStyle: 'miter',
+                                        pointBorderColor: "rgba(59,178,115,1)",
+                                        pointBackgroundColor: "#fff",
+                                        pointBorderWidth: 1,
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: "rgba(59,178,115,1)",
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointHoverBorderWidth: 2,
+                                        pointRadius: 1,
+                                        pointHitRadius: 10,
+                                        data: [16, 26, 88, 32, 36, 31, 18],
+                                        spanGaps: false,
+                                    },
+                                    {
+                                        label: "Masina 5",
+                                        fill: false,
+                                        lineTension: 0.1,
+                                        backgroundColor: "rgba(119,104,174,0.4)",
+                                        borderColor: "rgba(119,104,174,1)",
+                                        borderCapStyle: 'butt',
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        borderJoinStyle: 'miter',
+                                        pointBorderColor: "rgba(119,104,174,1)",
+                                        pointBackgroundColor: "#fff",
+                                        pointBorderWidth: 1,
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: "rgba(119,104,174,1)",
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointHoverBorderWidth: 2,
+                                        pointRadius: 1,
+                                        pointHitRadius: 10,
+                                        data: [25, 89, 10, 61, 96, 5, 72],
                                         spanGaps: false,
                                     }
                                 ]

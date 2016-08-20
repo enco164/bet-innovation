@@ -23,7 +23,7 @@ class UplateIsplate extends View
         $this->head();
         $this->header($viewBag);
         ?>
-        <div class='container-fluid'>
+        <div class='container-fluid' id="filters">
             <div class='row'>
                 <form action='/Monitoring/stanja' method='post' class="form-inline" style="padding: 16px">
 

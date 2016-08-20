@@ -46,7 +46,7 @@ class FilterGenerator
                         case 'date': {
                             ?>
                         <div class='input-group input-group-sm date' id='<?php echo $filter['name']; ?>'>
-                            <input type='text' class="form-control"
+                            <input type='text' class="form-control input-sm"
                                    name="<?php echo $filter['name']; ?>"
                                    <?php if(isset($_POST[$filter['name']])) {
                                        echo "value=\"";
@@ -72,7 +72,7 @@ class FilterGenerator
                             case 'time': {
                             ?>
                         <div class='input-group input-group-sm date' id='<?php echo $filter['name']; ?>'>
-                            <input type='text' class="form-control"
+                            <input type='text' class="form-control input-sm"
                                    name="<?php echo $filter['name']; ?>"
                                 <?php if(isset($_POST[$filter['name']])) {
                                     echo "value=\"";
@@ -142,7 +142,7 @@ class FilterGenerator
             }
         </script>
 
-        <div class='form-group' style='vertical-align: baseline !important;'>
+        <div class='form-group' style='margin-top: 15px'>
             <input type="button" class='btn btn-danger btn-sm' onclick="myFunction()" value="Reset">
             <input type='submit' class='btn btn-primary btn-sm' value='Prikaži'>
         </div>

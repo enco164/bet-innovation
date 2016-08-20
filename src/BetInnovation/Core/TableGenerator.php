@@ -25,8 +25,9 @@ class TableGenerator
                     <?php
                     foreach ($headers as $header) {
                         ?>
+                        <?php //if($header['native_type']=='numeric') echo "data-type='num'";?>
                         <th>
-                            <?php echo $header['name']; ?>
+                            <?php echo $header['name'];?>
                         </th>
                         <?php
                     }
@@ -43,9 +44,10 @@ class TableGenerator
                             <?php
                             if($header['native_type']==='timestamptz') {
                                 if($row[$header['name']])
-                                    echo $this->formatDate(date("d.m.Y H:i:s", strtotime($row[$header['name']])));
+                                    echo $this->formatDate(date("d.M.Y H:i:s", strtotime($row[$header['name']])));
                             }
                             else if($header['native_type']==='numeric') {
+                                //echo $row[$header['name']];
                                 echo number_format($row[$header['name']], 2, ',', '.');
                             }
                             else
@@ -59,15 +61,32 @@ class TableGenerator
                 </tbody>
             </table>
         </div>
+<!--        scrollY: 400,-->
+<!--        paging: false,-->
+<!--        pageLength: 50,-->
         <script>
-            $(document).ready(function() {
+            function updateTable() {
+                console.log($(window).height());
+                var h = $(window).height() - ($('#filters').height() + 52 + 50 + 50);
                 $('#table').DataTable( {
+                    scrollY: '60vh',
+                    paging: false,
+                    processing: true,
                     "searching": false,
                     "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Serbian.json"
-                    }
+                        "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Serbian.json",
+                        "thousands": ".",
+                        decimal: ','
+                    },
+                    colReorder: true
                 });
-            } );
+
+                function formatNumber(number) {
+                    console.log(number);
+                    return 0;
+                }
+            }
+            $(document).ready(updateTable);
         </script>
         <?php
     }

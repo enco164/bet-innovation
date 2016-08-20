@@ -43,7 +43,7 @@ class Stanja extends View
 
         </script>
 
-        <div class='container-fluid'>
+        <div class='container-fluid' id="filters">
             <div class='row'>
                 <form id="filters" action='/Monitoring/stanja' method='post' class="form-inline collapse" style="padding: 16px">
 
