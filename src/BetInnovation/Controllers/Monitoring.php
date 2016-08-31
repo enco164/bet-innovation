@@ -29,6 +29,7 @@ class Monitoring extends Controller
         try {
             $connection = new PDO($dsn);
             if($connection) {
+
                 $stmt = $connection->prepare($query);
                 $stmt->execute();
                 $uniqueNames = [];
@@ -80,6 +81,11 @@ class Monitoring extends Controller
         try {
             $connection = new PDO($dsn);
             if($connection) {
+                $tmpQuery = "set session time zone 'CET'";
+                $tmpStmt=$connection->prepare($tmpQuery);
+                $tmpStmt->execute();
+
+
                 $stmt = $connection->prepare($query);
 
                 if(isset($_POST['serialNum']) && strlen($_POST['serialNum']) > 0)

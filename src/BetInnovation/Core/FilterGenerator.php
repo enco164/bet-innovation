@@ -61,7 +61,7 @@ class FilterGenerator
                         <script type="text/javascript">
                             $(function () {
                                 $('#<?php echo $filter['name']; ?>').datetimepicker({
-                                    format: 'DD.MM.YYYY'
+                                    format: 'YYYY-MM-DD'
                                 });
                             });
                         </script>
