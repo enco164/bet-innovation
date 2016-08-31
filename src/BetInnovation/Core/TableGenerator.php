@@ -65,28 +65,18 @@ class TableGenerator
 <!--        paging: false,-->
 <!--        pageLength: 50,-->
         <script>
-            function updateTable() {
-                console.log($(window).height());
-                var h = $(window).height() - ($('#filters').height() + 52 + 50 + 50);
-                $('#table').DataTable( {
-                    scrollY: '60vh',
-                    paging: false,
-                    processing: true,
-                    "searching": false,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Serbian.json",
-                        "thousands": ".",
-                        decimal: ','
-                    },
-                    colReorder: true
-                });
-
-                function formatNumber(number) {
-                    console.log(number);
-                    return 0;
-                }
-            }
-            $(document).ready(updateTable);
+            $('#table').DataTable( {
+                scrollY: '55vh',
+                pageLength: 50,
+                processing: true,
+                "searching": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Serbian.json",
+                    "thousands": ".",
+                    decimal: ','
+                },
+                colReorder: true
+            });
         </script>
         <?php
     }
