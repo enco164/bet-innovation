@@ -23,29 +23,29 @@ class Stanja extends View
         $this->header($viewBag);
         ?>
 
-        <a class="btn btn-default hidden-lg hidden-md pull-right"
-           role="button" data-toggle="collapse"
-           href="#filters"
-           aria-expanded="false" aria-controls="filters" style="margin: 8px 8px">
-            <i class="fa fa-filter" aria-hidden="true"></i>
-            <span>Filteri</span>
-        </a>
-        <script>
-            $(window).bind('resize load', function() {
-                if ($(this).width() < 767) {
-                    $('#filters').removeClass('in');
-                    $('#filters').addClass('out');
-                } else {
-                    $('#filters').removeClass('out');
-                    $('#filters').addClass('in');
-                }
-            });
-
-        </script>
+<!--        <a class="btn btn-default hidden-lg hidden-md pull-right"-->
+<!--           role="button" data-toggle="collapse"-->
+<!--           href="#filters"-->
+<!--           aria-expanded="false" aria-controls="filters" style="margin: 8px 8px">-->
+<!--            <i class="fa fa-filter" aria-hidden="true"></i>-->
+<!--            <span>Filteri</span>-->
+<!--        </a>-->
+<!--        <script>-->
+<!--            $(window).bind('resize load', function() {-->
+<!--                if ($(this).width() < 767) {-->
+<!--                    $('#filters').removeClass('in');-->
+<!--                    $('#filters').addClass('out');-->
+<!--                } else {-->
+<!--                    $('#filters').removeClass('out');-->
+<!--                    $('#filters').addClass('in');-->
+<!--                }-->
+<!--            });-->
+<!---->
+<!--        </script>-->
 
         <div class='container-fluid' id="filters">
             <div class='row'>
-                <form id="filters" action='/Monitoring/stanja' method='post' class="form-inline collapse" style="padding: 16px">
+                <form id="filters" action='/Monitoring/stanja' method='post' class="form-inline" style="padding: 16px">
 
                     <?php new FilterGenerator([
                         ["type"=>"select", "label"=> "Naziv", "name"=>"serialNum", "values"=>$viewBag['uniqueNames'] ],

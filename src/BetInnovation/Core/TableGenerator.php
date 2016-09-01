@@ -45,7 +45,7 @@ class TableGenerator
                             if($header['native_type']==='timestamptz') {
                                 if($row[$header['name']]){
                                     $date = new \DateTime($row[$header['name']]);
-                                    echo $date->format("Y-m-d H:i:s");
+                                    echo str_replace(' 00:00:00', '', $date->format("Y-m-d H:i:s"));
                                 }
 
                             }
