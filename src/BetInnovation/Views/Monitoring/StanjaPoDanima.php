@@ -24,7 +24,7 @@ class StanjaPoDanima extends View
         ?>
         <div class='container-fluid' id="filters">
             <div class='row'>
-                <form action='/Monitoring/stanjaPoDanima' method='post' class="form-inline" style="padding: 16px">
+                <form id="filtersForm" action='/Monitoring/stanjaPoDanima' method='post' class="form-inline" style="padding: 16px">
 
                     <?php new FilterGenerator([
                         ["type"=>"select", "label"=> "Naziv", "name"=>"serialNum", "values"=>$viewBag['uniqueNames'] ],

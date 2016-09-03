@@ -29,7 +29,15 @@ class Index extends View
                 <div class="col-md-12">
                     <p class="lead">Primer grafikona (nisu uvezani sa stvarnim podacima)</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <?php
+                    if(count($viewBag['data']) > 0)
+                        new TableGenerator($viewBag['headers'], $viewBag['data']);
+                    else
+                        echo "<p style='text-align: center'>Nema rezultata</p>"
+                    ?>
+                </div>
+                <div class="col-md-4">
                     <canvas id="pieChart"></canvas>
                     <script>
                         jQuery(document).ready(function(){
@@ -62,7 +70,7 @@ class Index extends View
                     </script>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <canvas id="lineChart"></canvas>
                     <script>
                         jQuery(document).ready(function(){

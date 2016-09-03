@@ -20,6 +20,7 @@ class FilterGenerator
         foreach ($filterArray as $filter){?>
             <div class="form-group">
                 <label>
+
                     <?php
                     echo $filter['label'] . "<br/>";
 
@@ -105,10 +106,11 @@ class FilterGenerator
 
         <script>
             function myFunction() {
-                var formElement = document.getElementById("filterForm");
+                var formElement = document.getElementById("filtersForm");
                 var elements = formElement.elements;
 
-                formElement.reset();
+                console.log(formElement);
+//                formElement.reset();
 
                 for(i=0; i<elements.length; i++) {
 

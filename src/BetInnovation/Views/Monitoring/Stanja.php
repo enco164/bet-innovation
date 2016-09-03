@@ -45,7 +45,7 @@ class Stanja extends View
 
         <div class='container-fluid' id="filters">
             <div class='row'>
-                <form id="filters" action='/Monitoring/stanja' method='post' class="form-inline" style="padding: 16px">
+                <form id="filtersForm" action='/Monitoring/stanja' method='post' class="form-inline" style="padding: 16px">
 
                     <?php new FilterGenerator([
                         ["type"=>"select", "label"=> "Naziv", "name"=>"serialNum", "values"=>$viewBag['uniqueNames'] ],

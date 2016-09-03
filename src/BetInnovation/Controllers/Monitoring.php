@@ -24,8 +24,10 @@ class Monitoring extends Controller
         die();
     }
 
-    public function uniqueNamesArray($query) {
+    public function uniqueNamesArray() {
         $dsn = "pgsql:host=localhost;dbname=bet-innovation;user=".$_SESSION['username'].";password=".$_SESSION['password'];
+        $query = "select * from monitoring.get_user_registrations()";
+
         try {
             $connection = new PDO($dsn);
             if($connection) {
@@ -34,8 +36,8 @@ class Monitoring extends Controller
                 $stmt->execute();
                 $uniqueNames = [];
 
-                $cnt_columns = $stmt->rowCount();
-                for($i = 0; $i < $cnt_columns; $i++) {
+                $cnt_rows = $stmt->rowCount();
+                for($i = 0; $i < $cnt_rows; $i++) {
                     $data = $stmt->fetch();
                     $uniqueNames[]=[$data['serial_number'], $data['display_name']];
                 }
@@ -45,11 +47,11 @@ class Monitoring extends Controller
             echo $e->getMessage();
         }
 
-        $uniqueNames = array_unique($uniqueNames, SORT_REGULAR);
+//        $uniqueNames = array_unique($uniqueNames, SORT_REGULAR);
 
-        usort($uniqueNames, function($a, $b) {
-            return strcasecmp($a[1], $b[1]);
-        });
+//        usort($uniqueNames, function($a, $b) {
+//            return strcasecmp($a[1], $b[1]);
+//        });
         return $uniqueNames;
     }
 
@@ -131,8 +133,7 @@ class Monitoring extends Controller
         $stmt = $this->executeQuery($query, false);
         $headers = $this->prepareHeaders($stmt);
 
-        $queryPom = "select * from monitoring.get_accounting_pay_in_out(null, null, null, null)";
-        $uniqueNames = $this->uniqueNamesArray($queryPom);
+        $uniqueNames = $this->uniqueNamesArray();
 
         $this->model = [
             'data' => $stmt->fetchAll(PDO::FETCH_ASSOC),
@@ -162,8 +163,7 @@ class Monitoring extends Controller
             $data = array_merge_recursive($dataForFirst, $dataForRest);
         }
 
-        $queryPom = "select * from monitoring.get_accounting_totals(null, null, null, null)";
-        $uniqueNames = $this->uniqueNamesArray($queryPom);
+        $uniqueNames = $this->uniqueNamesArray();
 
         $this->model = [
             'data'=>$data,
@@ -193,8 +193,7 @@ class Monitoring extends Controller
             $data = array_merge_recursive($dataForFirst, $dataForRest);
         }
 
-        $queryPom = "select * from monitoring.get_accounting_totals_by_day(null, null, null, null)";
-        $uniqueNames = $this->uniqueNamesArray($queryPom);
+        $uniqueNames = $this->uniqueNamesArray();
 
         $this->model = [
             'data'=>$data,
@@ -224,8 +223,7 @@ class Monitoring extends Controller
             $data = array_merge_recursive($dataForFirst, $dataForRest);
         }
 
-        $queryPom = "select * from monitoring.get_accounting_totals_by_month(null, null, null, null)";
-        $uniqueNames = $this->uniqueNamesArray($queryPom);
+        $uniqueNames = $this->uniqueNamesArray();
 
         $this->model = [
             'data'=>$data,
