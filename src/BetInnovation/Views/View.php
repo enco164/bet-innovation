@@ -43,7 +43,8 @@ abstract class View
             <script src="/content/js/moment.min.js"></script>
             <script src="/content/js/bootstrap.min.js"></script>
             <script src="/content/js/bootstrap-datetimepicker.min.js"></script>
-            <script src="/content/js/Chart.js"></script>
+            <script src="/content/js/Chart.Core.js"></script>
+            <script src="/content/js/Chart.Scatter.js"></script>
             <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
             <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>

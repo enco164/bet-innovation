@@ -29,173 +29,165 @@ class Index extends View
                 <div class="col-md-12">
                     <p class="lead">Primer grafikona (nisu uvezani sa stvarnim podacima)</p>
                 </div>
-                <div class="col-md-4">
-                    <?php
-                    if(count($viewBag['data']) > 0)
-                        new TableGenerator($viewBag['headers'], $viewBag['data']);
-                    else
-                        echo "<p style='text-align: center'>Nema rezultata</p>"
-                    ?>
+
+                <div class="col-md-2">
+                    <div class="list-group">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button id="po-danu" type="button" class="btn btn-default" onclick="setPodeok(0)">Po danu</button>
+                            <button id="po-mesecu" type="button" class="btn btn-default active" onclick="setPodeok(1)">Po mesecu</button>
+                        </div>
+
+
+
+                        <?php
+                        foreach($viewBag['data'] as $data){?>
+                            <button id="<?php echo $data['serialNum']?>"
+                                    type="button" class="list-group-item"
+                                    onclick="select('<?php echo $data['serialNum']?>', '<?php echo $data['display_name']?> ')">
+                                <?php echo $data['display_name']?> (<?php echo $data['serialNum']?>)
+                            </button>
+                            <?php
+                        }
+                        ?>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <canvas id="pieChart"></canvas>
-                    <script>
-                        jQuery(document).ready(function(){
-                            var ctx2 = document.getElementById("pieChart");
-                            var pieChart = new Chart(ctx2, {
-                                type: 'pie',
-                                data:{
-                                    labels: [
-                                        "Red",
-                                        "Blue",
-                                        "Yellow"
-                                    ],
-                                    datasets: [
-                                        {
-                                            data: [300, 50, 100],
-                                            backgroundColor: [
-                                                "#FF6384",
-                                                "#36A2EB",
-                                                "#FFCE56"
-                                            ],
-                                            hoverBackgroundColor: [
-                                                "#FF6384",
-                                                "#36A2EB",
-                                                "#FFCE56"
-                                            ]
-                                        }]
-                                }});
+                <script>
+
+                    Chart.defaults.global.responsive = true;
+                    Chart.defaults.global.animation = true;
+
+                    var lineChart = null;
+                    var masine = {};
+                    var brojSelektovanih = 0;
+                    var boje = [
+                        'rgba(75,192,192,1)',
+                        'rgba(225,85,84,1)',
+                        'rgba(225,188,47,1)',
+                        'rgba(59,178,115,1)',
+                        'rgba(119,104,174,1)'];
+
+                    var podeok = 1;
+
+                    function setPodeok(p) {
+                        if (p === podeok) return;
+                        podeok = p;
+                        $('#po-danu').removeClass('active');
+                        $('#po-mesecu').removeClass('active');
+                        if (p === 0) {
+                            $('#po-danu').addClass('active');
+                        } else if (p === 1) {
+                            $('#po-mesecu').addClass('active');
+                        }
+                        redrawAllData();
+                    }
+
+                    function redrawAllData() {
+                        $.each(masine, function(key, value){
+                            getData(key);
                         });
+                        drawChart();
+                    }
 
-                    </script>
-                </div>
 
-                <div class="col-md-4">
-                    <canvas id="lineChart"></canvas>
-                    <script>
-                        jQuery(document).ready(function(){
-                            var ctx = document.getElementById("lineChart");
-                            var data = {
-                                labels: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul"],
-                                datasets: [
-                                    {
-                                        label: "Masina 1",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(75,192,192,0.4)",
-                                        borderColor: "rgba(75,192,192,1)",
-                                        borderCapStyle: 'butt',
-                                        borderDash: [],
-                                        borderDashOffset: 0.0,
-                                        borderJoinStyle: 'miter',
-                                        pointBorderColor: "rgba(75,192,192,1)",
-                                        pointBackgroundColor: "#fff",
-                                        pointBorderWidth: 1,
-                                        pointHoverRadius: 5,
-                                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                                        pointHoverBorderWidth: 2,
-                                        pointRadius: 1,
-                                        pointHitRadius: 10,
-                                        data: [15, 39, 47, 51, 36, 15, 50],
-                                        spanGaps: false,
-                                    },
-                                    {
-                                        label: "Masina 2",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(225,85,84,0.4)",
-                                        borderColor: "rgba(225,85,84,1)",
-                                        borderCapStyle: 'butt',
-                                        borderDash: [],
-                                        borderDashOffset: 0.0,
-                                        borderJoinStyle: 'miter',
-                                        pointBorderColor: "rgba(225,85,84,1)",
-                                        pointBackgroundColor: "#fff",
-                                        pointBorderWidth: 1,
-                                        pointHoverRadius: 5,
-                                        pointHoverBackgroundColor: "rgba(225,85,84,1)",
-                                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                                        pointHoverBorderWidth: 2,
-                                        pointRadius: 1,
-                                        pointHitRadius: 10,
-                                        data: [95, 29, 34, 11, 5, 52, 10],
-                                        spanGaps: false,
-                                    },
-                                    {
-                                        label: "Masina 3",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(225,188,47,0.4)",
-                                        borderColor: "rgba(225,188,47,1)",
-                                        borderCapStyle: 'butt',
-                                        borderDash: [],
-                                        borderDashOffset: 0.0,
-                                        borderJoinStyle: 'miter',
-                                        pointBorderColor: "rgba(225,188,47,1)",
-                                        pointBackgroundColor: "#fff",
-                                        pointBorderWidth: 1,
-                                        pointHoverRadius: 5,
-                                        pointHoverBackgroundColor: "rgba(225,188,47,1)",
-                                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                                        pointHoverBorderWidth: 2,
-                                        pointRadius: 1,
-                                        pointHitRadius: 10,
-                                        data: [12, 22, 95, 33, 57, 21, 49],
-                                        spanGaps: false,
-                                    },
-                                    {
-                                        label: "Masina 4",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(59,178,115,0.4)",
-                                        borderColor: "rgba(59,178,115,1)",
-                                        borderCapStyle: 'butt',
-                                        borderDash: [],
-                                        borderDashOffset: 0.0,
-                                        borderJoinStyle: 'miter',
-                                        pointBorderColor: "rgba(59,178,115,1)",
-                                        pointBackgroundColor: "#fff",
-                                        pointBorderWidth: 1,
-                                        pointHoverRadius: 5,
-                                        pointHoverBackgroundColor: "rgba(59,178,115,1)",
-                                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                                        pointHoverBorderWidth: 2,
-                                        pointRadius: 1,
-                                        pointHitRadius: 10,
-                                        data: [16, 26, 88, 32, 36, 31, 18],
-                                        spanGaps: false,
-                                    },
-                                    {
-                                        label: "Masina 5",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(119,104,174,0.4)",
-                                        borderColor: "rgba(119,104,174,1)",
-                                        borderCapStyle: 'butt',
-                                        borderDash: [],
-                                        borderDashOffset: 0.0,
-                                        borderJoinStyle: 'miter',
-                                        pointBorderColor: "rgba(119,104,174,1)",
-                                        pointBackgroundColor: "#fff",
-                                        pointBorderWidth: 1,
-                                        pointHoverRadius: 5,
-                                        pointHoverBackgroundColor: "rgba(119,104,174,1)",
-                                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                                        pointHoverBorderWidth: 2,
-                                        pointRadius: 1,
-                                        pointHitRadius: 10,
-                                        data: [25, 89, 10, 61, 96, 5, 72],
-                                        spanGaps: false,
-                                    }
-                                ]
+                    function select(serialNumber, name) {
+                        var id = '#' + serialNumber;
+                        if (masine[serialNumber]) {
+                            $(id).removeClass('active');
+                            boje.push(masine[serialNumber].color);
+                            delete masine[serialNumber];
+                            --brojSelektovanih;
+                        } else {
+                            if (brojSelektovanih > 4) {
+                                return;
+                            }
+                            ++brojSelektovanih;
+                            $(id).addClass('active');
+                            masine[serialNumber] = {
+                                color: boje.pop(),
+                                name: name
                             };
-                            var myLineChart = Chart.Line(ctx, {
-                                data: data
+                            getData(serialNumber);
+                        }
+                        drawChart();
+                    }
+
+                    function getData(serialNumber) {
+                        var url = '/Home/getBy';
+                        if (podeok === 0) {
+                            url += 'Day';
+                        } else if (podeok === 1) {
+                            url += 'Month';
+                        }
+                        $.ajax(url,{
+                            method: 'POST',
+                            async: false,
+                            data: {
+                                serialNum: serialNumber
+                            }
+                        }).done(function(data) {
+                            masine[serialNumber].data = JSON.parse(data);
+                            console.log(masine[serialNumber]);
+                        });
+                    }
+
+                    function drawChart(){
+                        resetCanvas();
+//                        if(podeok === 0) {
+//                            chartOptions.options.scales.xAxes[0].time = {unit: 'day'};
+//                        } else if (podeok === 1) {
+//                            chartOptions.options.scales.xAxes[0].time = {unit: 'month'};
+//                        }
+                        var data = [];
+                        var lastSerial = null;
+                        var labels = {};
+                        $.each(masine, function(key, value){
+                            lastSerial = key;
+                            var mData = mapData();
+                            data.push({
+                                label: masine[key].name + '(' + key + ')',
+                                data: mData,
+                                borderColor: masine[key].color,
+                                pointBorderColor: masine[key].color,
+                                pointHoverBackgroundColor: masine[key].color,
+//                                backgroundColor: masine[key].color
                             });
+                            function mapData() {
+                                var retArr = [];
+                                for (var i = 0; i < masine[key].data.length; ++i) {
+                                    retArr.push(masine[key].data[i].total);
+                                }
+                                return retArr;
+                            }
+
+                            for (var j = 0; j < masine[key].data.length; j++) {
+                                labels[masine[key].data[j].datetime] = moment(masine[key].data[j].datetime).format('YYYY-MM-DD');
+                            }
                         });
 
-                    </script>
+
+                        var ctx = document.getElementById("lineChart").getContext('2d');
+                        console.log(ctx);
+                        lineChart = Chart(ctx).Scatter(data, {
+                            bezierCurve: true,
+                            showTooltips: true,
+                            scaleShowHorizontalLines: true,
+                            scaleShowLabels: true,
+                            scaleType: "date",
+                            scaleDateFormat: 'yyyy-mm-dd'
+                        });
+
+                        function resetCanvas() {
+                            $('#lineChart').remove(); // this is my <canvas> element
+                            $('#chart-container').append('<canvas id="lineChart"></canvas>');
+                        }
+                    }
+                </script>
+
+
+                <div class="col-md-10">
+                    <div id="chart-container">
+                        <canvas id="lineChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

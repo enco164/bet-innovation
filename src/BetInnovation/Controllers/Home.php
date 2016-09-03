@@ -32,7 +32,7 @@ class Home extends Controller{
                 $cnt_rows = $stmt->rowCount();
                 for($i = 0; $i < $cnt_rows; $i++) {
                     $tmpData = $stmt->fetch();
-                    $data[]=['serial_number' => $tmpData['serial_number'], 'display_name' => $tmpData['display_name']];
+                    $data[]=['serialNum' => $tmpData['serial_number'], 'display_name' => $tmpData['display_name']];
                 }
 
                 $cnt_columns = $stmt->columnCount();
@@ -41,9 +41,6 @@ class Home extends Controller{
                     if($metadata['name'] == 'serial_number' || $metadata['name'] == 'display_name')
                         $headers[]=['native_type'=>$metadata['native_type'], 'name'=>$metadata['name']];
                 }
-
-//                $this->getByMonth();
-
                 $this->model = [
                     'navActiveLink'=>'HOME',
                     'data'=>$data,
