@@ -54,7 +54,7 @@ class Index extends View
                 <script>
 
                     Chart.defaults.global.responsive = true;
-                    Chart.defaults.global.animation = true;
+                    Chart.defaults.global.animation = false;
 
                     var lineChart = null;
                     var masine = {};
@@ -131,21 +131,19 @@ class Index extends View
                     }
 
                     function drawChart(){
-                        resetCanvas();
+//                        resetCanvas();
 //                        if(podeok === 0) {
 //                            chartOptions.options.scales.xAxes[0].time = {unit: 'day'};
 //                        } else if (podeok === 1) {
 //                            chartOptions.options.scales.xAxes[0].time = {unit: 'month'};
 //                        }
                         var data = [];
-                        var lastSerial = null;
-                        var labels = {};
                         $.each(masine, function(key, value){
-                            lastSerial = key;
                             var mData = mapData();
                             data.push({
                                 label: masine[key].name + '(' + key + ')',
                                 data: mData,
+                                strokeColor: masine[key].color,
                                 borderColor: masine[key].color,
                                 pointBorderColor: masine[key].color,
                                 pointHoverBackgroundColor: masine[key].color,
@@ -154,20 +152,19 @@ class Index extends View
                             function mapData() {
                                 var retArr = [];
                                 for (var i = 0; i < masine[key].data.length; ++i) {
-                                    retArr.push(masine[key].data[i].total);
+                                    retArr.push({
+                                        x: moment(masine[key].data[i].datetime).toDate(),
+                                        y:masine[key].data[i].total
+                                    });
                                 }
                                 return retArr;
                             }
-
-                            for (var j = 0; j < masine[key].data.length; j++) {
-                                labels[masine[key].data[j].datetime] = moment(masine[key].data[j].datetime).format('YYYY-MM-DD');
-                            }
                         });
 
-
-                        var ctx = document.getElementById("lineChart").getContext('2d');
+//                        resetCanvas();
+                        var ctx = $("#lineChart").get(0).getContext('2d');
                         console.log(ctx);
-                        lineChart = Chart(ctx).Scatter(data, {
+                        lineChart = new Chart(ctx).Scatter(data, {
                             bezierCurve: true,
                             showTooltips: true,
                             scaleShowHorizontalLines: true,
