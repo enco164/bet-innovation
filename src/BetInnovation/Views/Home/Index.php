@@ -26,6 +26,10 @@ class Index extends View
         <div class='container-fluid'>
             <div class="row">
                 <form id="filtersForm" action='' class="form-inline" style="padding: 16px">
+                    <div class="btn-group" role="group" aria-label="..." style="margin-top: 16px; margin-right: 16px">
+                        <button id="po-danu" type="button" class="btn btn-default" onclick="setPodeok(0)">Po danu</button>
+                        <button id="po-mesecu" type="button" class="btn btn-primary" onclick="setPodeok(1)">Po mesecu</button>
+                    </div>
                     <div class="form-group">
                         <label>
                             Period od: <br/>
@@ -74,10 +78,6 @@ class Index extends View
                             </script>
                         </label>
                     </div>
-                    <div class="btn-group" role="group" aria-label="..." style="margin-top: 16px">
-                        <button id="po-danu" type="button" class="btn btn-default" onclick="setPodeok(0)">Po danu</button>
-                        <button id="po-mesecu" type="button" class="btn btn-default active" onclick="setPodeok(1)">Po mesecu</button>
-                    </div>
                 </form>
             </div>
 
@@ -113,12 +113,21 @@ class Index extends View
                     function setPodeok(p) {
                         if (p === podeok) return;
                         podeok = p;
-                        $('#po-danu').removeClass('active');
-                        $('#po-mesecu').removeClass('active');
+//                        $('#po-danu').removeClass('active');
+                        $('#po-danu').removeClass('btn-primary');
+                        $('#po-danu').removeClass('btn-default');
+//                        $('#po-mesecu').removeClass('active');
+                        $('#po-mesecu').removeClass('btn-primary');
+                        $('#po-mesecu').removeClass('btn-default');
                         if (p === 0) {
-                            $('#po-danu').addClass('active');
+//                            $('#po-danu').addClass('active');
+                            $('#po-danu').addClass('btn-primary');
+                            $('#po-mesecu').addClass('btn-default')
                         } else if (p === 1) {
-                            $('#po-mesecu').addClass('active');
+//                            $('#po-mesecu').addClass('active');
+                            $('#po-mesecu').addClass('btn-primary');
+                            $('#po-danu').addClass('btn-default');
+
                         }
                         redrawAllData();
                     }
@@ -170,7 +179,6 @@ class Index extends View
                             }
                         }).done(function(data) {
                             masine[serialNumber].data = JSON.parse(data);
-                            console.log(masine[serialNumber]);
                         });
                     }
 
@@ -208,24 +216,28 @@ class Index extends View
 
                         resetCanvas();
                         var ctx = document.getElementById("lineChart").getContext('2d');
-                        lineChart = Chart.Scatter(ctx, {
-                            data: data,
-                            options: {
-                                responsive: true,
+                        var chartOpt = {
+                            responsive: true,
                                 hoverMode: 'single', // should always use single for a scatter chart
                                 scales: {
-                                    xAxes: [{
-                                        type: 'time',
-                                        time: {
-                                            tooltipFormat: 'YYYY-MM-DD'
-                                        }
-                                    }],
+                                xAxes: [{
+                                    type: 'time',
+                                    time: {
+                                        tooltipFormat: 'YYYY-MM-DD'
+                                    }
+                                }],
                                     yAxes: [{
-                                        gridLines: {
-                                            zeroLineColor: "rgba(0,0,0,0.85)"
-                                        }}]
-                                }
+                                    gridLines: {
+                                        zeroLineColor: "rgba(0,0,0,0.85)"
+                                    }}]
                             }
+                        };
+                        if(podeok === 1) {
+                            chartOpt.scales.xAxes[0].time.unit = 'month';
+                        }
+                        lineChart = Chart.Scatter(ctx, {
+                            data: data,
+                            options: chartOpt
                         });
 
                         function resetCanvas() {
@@ -237,7 +249,7 @@ class Index extends View
 
 
                 <div class="col-md-10">
-                    <div id="chart-container">
+                    <div id="chart-container" style="width: 80vw">
                         <canvas id="lineChart"></canvas>
                     </div>
                 </div>
