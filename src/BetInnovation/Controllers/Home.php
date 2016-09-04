@@ -41,6 +41,7 @@ class Home extends Controller{
                     if($metadata['name'] == 'serial_number' || $metadata['name'] == 'display_name')
                         $headers[]=['native_type'=>$metadata['native_type'], 'name'=>$metadata['name']];
                 }
+
                 $this->model = [
                     'navActiveLink'=>'HOME',
                     'data'=>$data,
@@ -70,7 +71,6 @@ class Home extends Controller{
                 else {
                     echo "[]";
                     return;
-//                    $stmt->bindValue(':serial_num', 'S600003');
                 }
                 if(isset($_POST['periodStart']) && strlen($_POST['periodStart']) > 0)
                     $stmt->bindValue(':period_start', $_POST['periodStart']);
@@ -86,11 +86,7 @@ class Home extends Controller{
 
                 $stmt->execute();
 
-//                var_dump(json_encode($stmt->fetchAll()));
-
                 echo json_encode($stmt->fetchAll());
-
-
             }
         }
         catch (PDOException $e) {
@@ -128,11 +124,7 @@ class Home extends Controller{
 
                 $stmt->execute();
 
-//                var_dump(json_encode($stmt->fetchAll()));
-
                 echo json_encode($stmt->fetchAll());
-
-
             }
         }
         catch (PDOException $e) {

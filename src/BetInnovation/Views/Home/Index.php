@@ -24,12 +24,54 @@ class Index extends View
 
         ?>
         <div class='container-fluid'>
-            <h1>Home</h1>
-            <div class='row'>
-                <div class="col-md-12">
-                    <p class="lead">Primer grafikona (nisu uvezani sa stvarnim podacima)</p>
-                </div>
+            <div class="row">
+                <form id="filtersForm" action='' class="form-inline" style="padding: 16px">
+                    <div class="form-group">
+                        <label>
+                            Period od: <br/>
+                            <div class='input-group input-group-sm date'>
+                                <input type='text' class="form-control input-sm"
+                                       id='periodStart'
+                                       name="periodStart"
+                                       oninput="redrawAllData()"/>
+                                <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#periodStart').datetimepicker({
+                                        format: 'YYYY-MM-DD'
+                                    });
+                                });
+                            </script>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Period do: <br/>
+                            <div class='input-group input-group-sm date'>
+                                <input type='text' class="form-control input-sm"
+                                       id='periodEnd'
+                                       name="periodEnd"
+                                       oninput="redrawAllData()"/>
+                                <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#periodEnd').datetimepicker({
+                                        format: 'YYYY-MM-DD'
+                                    });
+                                });
+                            </script>
+                        </label>
+                    </div>
+                </form>
+            </div>
 
+            <div class='row'>
                 <div class="col-md-2">
                     <div class="list-group">
                         <div class="btn-group" role="group" aria-label="...">
@@ -54,7 +96,7 @@ class Index extends View
                 <script>
 
                     Chart.defaults.global.responsive = true;
-                    Chart.defaults.global.animation = false;
+                    Chart.defaults.global.animation = true;
 
                     var lineChart = null;
                     var masine = {};
@@ -122,7 +164,9 @@ class Index extends View
                             method: 'POST',
                             async: false,
                             data: {
-                                serialNum: serialNumber
+                                serialNum: serialNumber,
+                                periodStart: document.getElementById('periodStart').value,
+                                periodEnd: document.getElementById('periodEnd').value
                             }
                         }).done(function(data) {
                             masine[serialNumber].data = JSON.parse(data);
@@ -146,15 +190,15 @@ class Index extends View
                                 strokeColor: masine[key].color,
                                 borderColor: masine[key].color,
                                 pointBorderColor: masine[key].color,
-                                pointHoverBackgroundColor: masine[key].color,
+                                pointHoverBackgroundColor: masine[key].color
 //                                backgroundColor: masine[key].color
                             });
                             function mapData() {
                                 var retArr = [];
                                 for (var i = 0; i < masine[key].data.length; ++i) {
                                     retArr.push({
-                                        x: moment(masine[key].data[i].datetime).toDate(),
-                                        y:masine[key].data[i].total
+                                        x: moment.utc(masine[key].data[i].datetime, 'YYYY-MM-DD'),
+                                        y: masine[key].data[i].total
                                     });
                                 }
                                 return retArr;
