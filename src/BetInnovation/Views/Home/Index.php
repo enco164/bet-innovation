@@ -43,6 +43,9 @@ class Index extends View
                                     $('#periodStart').datetimepicker({
                                         format: 'YYYY-MM-DD'
                                     });
+                                    $('#periodStart').on("dp.change", function (e) {
+                                        redrawAllData();
+                                    });
                                 });
                             </script>
                         </label>
@@ -64,23 +67,23 @@ class Index extends View
                                     $('#periodEnd').datetimepicker({
                                         format: 'YYYY-MM-DD'
                                     });
+                                    $('#periodEnd').on("dp.change", function (e) {
+                                        redrawAllData();
+                                    });
                                 });
                             </script>
                         </label>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="..." style="margin-top: 16px">
+                        <button id="po-danu" type="button" class="btn btn-default" onclick="setPodeok(0)">Po danu</button>
+                        <button id="po-mesecu" type="button" class="btn btn-default active" onclick="setPodeok(1)">Po mesecu</button>
                     </div>
                 </form>
             </div>
 
             <div class='row'>
                 <div class="col-md-2">
-                    <div class="list-group">
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button id="po-danu" type="button" class="btn btn-default" onclick="setPodeok(0)">Po danu</button>
-                            <button id="po-mesecu" type="button" class="btn btn-default active" onclick="setPodeok(1)">Po mesecu</button>
-                        </div>
-
-
-
+                    <div class="list-group" style="height: calc(100vh - 180px); overflow-y: scroll;">
                         <?php
                         foreach($viewBag['data'] as $data){?>
                             <button id="<?php echo $data['serialNum']?>"
@@ -94,9 +97,6 @@ class Index extends View
                     </div>
                 </div>
                 <script>
-
-                    Chart.defaults.global.responsive = true;
-                    Chart.defaults.global.animation = true;
 
                     var lineChart = null;
                     var masine = {};
@@ -181,17 +181,18 @@ class Index extends View
 //                        } else if (podeok === 1) {
 //                            chartOptions.options.scales.xAxes[0].time = {unit: 'month'};
 //                        }
-                        var data = [];
+                        var data = {datasets: []};
                         $.each(masine, function(key, value){
                             var mData = mapData();
-                            data.push({
+                            data.datasets.push({
                                 label: masine[key].name + '(' + key + ')',
                                 data: mData,
                                 strokeColor: masine[key].color,
                                 borderColor: masine[key].color,
+                                backgroundColor: masine[key].color.replace(',1)', ',0.25)'),
                                 pointBorderColor: masine[key].color,
+                                pointBorderWidth: 1,
                                 pointHoverBackgroundColor: masine[key].color
-//                                backgroundColor: masine[key].color
                             });
                             function mapData() {
                                 var retArr = [];
@@ -205,16 +206,26 @@ class Index extends View
                             }
                         });
 
-//                        resetCanvas();
-                        var ctx = $("#lineChart").get(0).getContext('2d');
-                        console.log(ctx);
-                        lineChart = new Chart(ctx).Scatter(data, {
-                            bezierCurve: true,
-                            showTooltips: true,
-                            scaleShowHorizontalLines: true,
-                            scaleShowLabels: true,
-                            scaleType: "date",
-                            scaleDateFormat: 'yyyy-mm-dd'
+                        resetCanvas();
+                        var ctx = document.getElementById("lineChart").getContext('2d');
+                        lineChart = Chart.Scatter(ctx, {
+                            data: data,
+                            options: {
+                                responsive: true,
+                                hoverMode: 'single', // should always use single for a scatter chart
+                                scales: {
+                                    xAxes: [{
+                                        type: 'time',
+                                        time: {
+                                            tooltipFormat: 'YYYY-MM-DD'
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        gridLines: {
+                                            zeroLineColor: "rgba(0,0,0,0.85)"
+                                        }}]
+                                }
+                            }
                         });
 
                         function resetCanvas() {

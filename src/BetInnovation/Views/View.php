@@ -43,7 +43,7 @@ abstract class View
             <script src="/content/js/moment.min.js"></script>
             <script src="/content/js/bootstrap.min.js"></script>
             <script src="/content/js/bootstrap-datetimepicker.min.js"></script>
-            <script src="/content/js/Chart.Core.js"></script>
+            <script src="/content/js/Chart.js"></script>
             <script src="/content/js/Chart.Scatter.js"></script>
             <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
@@ -80,7 +80,7 @@ abstract class View
                             <?php if ($viewBag['navActiveLink'] == 'HOME') { ?>
                                 class='active'
                             <?php } ?>
-                        ><a href="/">Home</a></li>
+                        ><a href="/">Grafikoni</a></li>
 
 
                         <li
@@ -136,7 +136,7 @@ abstract class View
         <div id="loading" style="text-align: center; height: calc(100vh - 55px); line-height: calc(100vh - 55px);font-size: 30px">
             <i class="fa fa-cog fa-spin fa-fw"></i><span>Loading</span>
         </div>
-        <div id="content" class="hidden" style="padding-bottom: 32px">
+        <div id="content" class="hidden">
 
 
         <?php
