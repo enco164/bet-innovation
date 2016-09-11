@@ -77,12 +77,34 @@ public function header($viewBag)
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Monitoring<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/Monitoring/uplateIsplate">Uplate i isplate</a></li>
-                                <li><a href="/Monitoring/stanja">Stanja</a></li>
-                                <li><a href="/Monitoring/stanjaPoDanima">Stanja po danima</a></li>
-                                <li><a href="/Monitoring/stanjaPoMesecima">Stanja po mesecima</a></li>
+                                <li
+                                    <?php if ($viewBag['navActiveLink'] == 'UPLATE_ISPLATE') { ?>
+                                        class='active'
+                                    <?php } ?>
+                                ><a href="/Monitoring/uplateIsplate">Uplate i isplate</a></li>
+                                <li
+                                    <?php if ($viewBag['navActiveLink'] == 'STANJA') { ?>
+                                        class='active'
+                                    <?php } ?>
+                                ><a href="/Monitoring/stanja">Stanja</a></li>
+                                <li
+                                    <?php if ($viewBag['navActiveLink'] == 'STANJA_PO_DANIMA') { ?>
+                                        class='active'
+                                    <?php } ?>
+                                ><a href="/Monitoring/stanjaPoDanima">Stanja po danima</a></li>
+                                <li
+                                    <?php if ($viewBag['navActiveLink'] == 'STANJA_PO_MESECIMA') { ?>
+                                        class='active'
+                                    <?php } ?>
+                                ><a href="/Monitoring/stanjaPoMesecima">Stanja po mesecima</a></li>
+
                                 <li role="separator" class="divider"></li>
-                                <li><a href="/">Grafikoni</a></li>
+
+                                <li
+                                    <?php if ($viewBag['navActiveLink'] == 'HOME') { ?>
+                                        class='active'
+                                    <?php } ?>
+                                ><a href="/">Grafikoni</a></li>
                             </ul>
                         </li>
                     </ul>
