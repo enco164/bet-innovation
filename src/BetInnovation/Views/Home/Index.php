@@ -242,7 +242,21 @@ class Index extends View
 
                         function resetCanvas() {
                             $('#lineChart').remove(); // this is my <canvas> element
-                            $('#chart-container').append('<canvas id="lineChart"></canvas>');
+                            var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                            console.log(w);
+                            var c = '<canvas id="lineChart"';
+                            if (w < 768) {
+                                c += ' height="400"';
+                                Chart.defaults.global.maintainAspectRatio = false;
+                            }else {
+                                Chart.defaults.global.maintainAspectRatio = true;
+                            }
+                            c += '></canvas>';
+                            console.log(c);
+                            $('#chart-container').append(c);
+                            if (w < 768) {
+                                $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                            }
                         }
                     }
                 </script>
