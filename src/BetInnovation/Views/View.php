@@ -53,64 +53,39 @@ abstract class View
         <?php
     }
 
-    public function header($viewBag)
-    {
-        ?>
-        <header></header>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Happy Bet</a>
-                </div>
+public function header($viewBag)
+{
+    ?>
+    <header></header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Happy Bet</a>
+            </div>
 
-                <?php if (!isset($viewBag['notAuth'])) { ?>
+            <?php if (!isset($viewBag['notAuth'])) { ?>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-
-                        <li
-                            <?php if ($viewBag['navActiveLink'] == 'HOME') { ?>
-                                class='active'
-                            <?php } ?>
-                        ><a href="/">Grafikoni</a></li>
-
-
-                        <li
-                            <?php if ($viewBag['navActiveLink'] == 'UPLATE_ISPLATE') { ?>
-                                class='active'
-                            <?php } ?>
-                        ><a href="/Monitoring/uplateIsplate">Uplate i isplate</a></li>
-
-
-                        <li
-                            <?php if ($viewBag['navActiveLink'] == 'STANJA') { ?>
-                                class='active'
-                            <?php } ?>
-                        ><a href="/Monitoring/stanja">Stanja</a></li>
-
-
-                        <li
-                            <?php if ($viewBag['navActiveLink'] == 'STANJA_PO_DANIMA') { ?>
-                                class='active'
-                            <?php } ?>
-                        ><a href="/Monitoring/stanjaPoDanima">Stanja po danima</a></li>
-
-
-                        <li
-                            <?php if ($viewBag['navActiveLink'] == 'STANJA_PO_MESECIMA') { ?>
-                                class='active'
-                            <?php } ?>
-                        ><a href="/Monitoring/stanjaPoMesecima">Stanja po mesecima</a></li>
-
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Monitoring<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Monitoring/uplateIsplate">Uplate i isplate</a></li>
+                                <li><a href="/Monitoring/stanja">Stanja</a></li>
+                                <li><a href="/Monitoring/stanjaPoDanima">Stanja po danima</a></li>
+                                <li><a href="/Monitoring/stanjaPoMesecima">Stanja po mesecima</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/">Grafikoni</a></li>
+                            </ul>
+                        </li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="/Login/logout">
@@ -119,12 +94,14 @@ abstract class View
                             </a>
                         </li>
                     </ul>
-                    <?php
-                    }
-                    ?>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+
+                </div>
+                <?php
+            }
+            ?>
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
     <script>
         $(document).ready(function() {
@@ -132,14 +109,14 @@ abstract class View
             $('#content').removeClass('hidden');
         } );
     </script>
-        <div id="loading" style="text-align: center; height: calc(100vh - 55px); line-height: calc(100vh - 55px);font-size: 30px">
-            <i class="fa fa-cog fa-spin fa-fw"></i><span>Loading</span>
-        </div>
-        <div id="content" class="hidden">
+    <div id="loading" style="text-align: center; height: calc(100vh - 55px); line-height: calc(100vh - 55px);font-size: 30px">
+        <i class="fa fa-cog fa-spin fa-fw"></i><span>Loading</span>
+    </div>
+<div id="content" class="hidden">
 
 
-        <?php
-    }
+    <?php
+}
 
     public function filters(){
         ?>

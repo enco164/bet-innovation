@@ -17,11 +17,14 @@ class FilterGenerator
      */
     public function __construct($filterArray)
     {
-        foreach ($filterArray as $filter){?>
+        foreach ($filterArray as $filter){
+            ?>
             <div class="form-group">
                 <label>
 
                     <?php
+                    echo "<input type='checkbox' name=" . $filter['name'] . " id=" . $filter['name'] . "Box>";
+
                     echo $filter['label'] . "<br/>";
 
                     switch ($filter['type']) {
@@ -105,12 +108,13 @@ class FilterGenerator
         ?>
 
         <script>
-            function myFunction() {
+            function checkboxChanged($checkboxId) {
+
+            }
+
+            function resetFields($submitFlag) {
                 var formElement = document.getElementById("filtersForm");
                 var elements = formElement.elements;
-
-                console.log(formElement);
-//                formElement.reset();
 
                 for(i=0; i<elements.length; i++) {
 
@@ -141,11 +145,14 @@ class FilterGenerator
                             break;
                     }
                 }
+                if($submitFlag)
+                    document.getElementById("filtersForm").submit();
             }
         </script>
 
         <div class='form-group' style='margin-top: 15px'>
-            <input type="button" class='btn btn-danger btn-sm' onclick="myFunction()" value="Reset">
+            <input type="button" class='btn btn-danger btn-sm' onclick="resetFields(false)" value="Reset">
+            <input type='button' class='btn btn-primary btn-sm' onclick="resetFields(true)" value="Isključi filtere">
             <input type='submit' class='btn btn-primary btn-sm' value='Prikaži'>
         </div>
         <?php

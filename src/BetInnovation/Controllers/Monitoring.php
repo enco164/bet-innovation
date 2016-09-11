@@ -9,12 +9,12 @@
 namespace BetInnovation\Controllers;
 
 use BetInnovation\Core\Controller;
+use BetInnovation\Core\DbConnection;
 use BetInnovation\Views\Monitoring\Stanja;
 use BetInnovation\Views\Monitoring\StanjaPoDanima;
 use BetInnovation\Views\Monitoring\StanjaPoMesecima;
 use BetInnovation\Views\Monitoring\UplateIsplate;
 use PDO;
-use PDOException;
 
 class Monitoring extends Controller
 {
@@ -25,33 +25,21 @@ class Monitoring extends Controller
     }
 
     public function uniqueNamesArray() {
-        $dsn = "pgsql:host=localhost;dbname=bet-innovation;user=".$_SESSION['username'].";password=".$_SESSION['password'];
         $query = "select * from monitoring.get_user_registrations()";
 
-        try {
-            $connection = new PDO($dsn);
-            if($connection) {
+        $connection = DbConnection::getConnection();
 
-                $stmt = $connection->prepare($query);
-                $stmt->execute();
-                $uniqueNames = [];
+        if($connection) {
+            $stmt = $connection->prepare($query);
+            $stmt->execute();
+            $uniqueNames = [];
 
-                $cnt_rows = $stmt->rowCount();
-                for($i = 0; $i < $cnt_rows; $i++) {
-                    $data = $stmt->fetch();
-                    $uniqueNames[]=[$data['serial_number'], $data['display_name']];
-                }
+            $cnt_rows = $stmt->rowCount();
+            for ($i = 0; $i < $cnt_rows; $i++) {
+                $data = $stmt->fetch();
+                $uniqueNames[] = [$data['serial_number'], $data['display_name']];
             }
         }
-        catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-
-//        $uniqueNames = array_unique($uniqueNames, SORT_REGULAR);
-
-//        usort($uniqueNames, function($a, $b) {
-//            return strcasecmp($a[1], $b[1]);
-//        });
         return $uniqueNames;
     }
 
@@ -79,51 +67,44 @@ class Monitoring extends Controller
     }
 
     public function executeQuery($query, $allTerminals) {
-        $dsn = "pgsql:host=localhost;dbname=bet-innovation;user=".$_SESSION['username'].";password=".$_SESSION['password'];
-        try {
-            $connection = new PDO($dsn);
-            if($connection) {
-                $tmpQuery = "set session time zone 'CET'";
-                $tmpStmt=$connection->prepare($tmpQuery);
-                $tmpStmt->execute();
 
+        $connection = DbConnection::getConnection();
 
-                $stmt = $connection->prepare($query);
+        if($connection) {
 
-                if(isset($_POST['serialNum']) && strlen($_POST['serialNum']) > 0)
-                    $stmt->bindValue(':serialNum', $_POST['serialNum']);
-                else
-                    $stmt->bindValue(':serialNum', null);
+            $stmt = $connection->prepare($query);
 
-                if(isset($_POST['terminal']) && strlen($_POST['terminal']) > 0 && $allTerminals == false)
-                    $stmt->bindValue(':terminal', intval($_POST['terminal']));
-                else if($allTerminals == false)
-                    $stmt->bindValue(':terminal', null);
-                else
-                    $stmt->bindValue(':terminal', $allTerminals);
+            if(isset($_POST['serialNum']) && strlen($_POST['serialNum']) > 0)
+                $stmt->bindValue(':serialNum', $_POST['serialNum']);
+            else
+                $stmt->bindValue(':serialNum', null);
 
-                if(isset($_POST['datetimeFromDate']) && strlen($_POST['datetimeFromDate']) > 0 && isset($_POST['datetimeFromTime']) && strlen($_POST['datetimeFromTime']) > 0)
-                    $stmt->bindValue(':datetimeFrom', $_POST['datetimeFromDate'] . ' ' . $_POST['datetimeFromTime']);
-                else if(isset($_POST['datetimeFromDate']) && strlen($_POST['datetimeFromDate']) > 0)
-                    $stmt->bindValue(':datetimeFrom', $_POST['datetimeFromDate']);
-                else
-                    $stmt->bindValue(':datetimeFrom', null);
+            if(isset($_POST['terminal']) && strlen($_POST['terminal']) > 0 && $allTerminals == false)
+                $stmt->bindValue(':terminal', intval($_POST['terminal']));
+            else if($allTerminals == false)
+                $stmt->bindValue(':terminal', null);
+            else
+                $stmt->bindValue(':terminal', $allTerminals);
 
-                if(isset($_POST['datetimeToDate']) && strlen($_POST['datetimeToDate']) > 0 && isset($_POST['datetimeToTime']) && strlen($_POST['datetimeToTime']) > 0)
-                    $stmt->bindValue(':datetimeTo', $_POST['datetimeToDate'] . ' ' . $_POST['datetimeToTime']);
-                else if(isset($_POST['datetimeToDate']) && strlen($_POST['datetimeToDate']) > 0)
-                    $stmt->bindValue(':datetimeTo', $_POST['datetimeToDate']);
-                else
-                    $stmt->bindValue(':datetimeTo', null);
+            if(isset($_POST['datetimeFromDate']) && strlen($_POST['datetimeFromDate']) > 0 && isset($_POST['datetimeFromTime']) && strlen($_POST['datetimeFromTime']) > 0)
+                $stmt->bindValue(':datetimeFrom', $_POST['datetimeFromDate'] . ' ' . $_POST['datetimeFromTime']);
+            else if(isset($_POST['datetimeFromDate']) && strlen($_POST['datetimeFromDate']) > 0)
+                $stmt->bindValue(':datetimeFrom', $_POST['datetimeFromDate']);
+            else
+                $stmt->bindValue(':datetimeFrom', null);
 
-                $stmt->execute();
+            if(isset($_POST['datetimeToDate']) && strlen($_POST['datetimeToDate']) > 0 && isset($_POST['datetimeToTime']) && strlen($_POST['datetimeToTime']) > 0)
+                $stmt->bindValue(':datetimeTo', $_POST['datetimeToDate'] . ' ' . $_POST['datetimeToTime']);
+            else if(isset($_POST['datetimeToDate']) && strlen($_POST['datetimeToDate']) > 0)
+                $stmt->bindValue(':datetimeTo', $_POST['datetimeToDate']);
+            else
+                $stmt->bindValue(':datetimeTo', null);
 
-                return $stmt;
-            }
+            $stmt->execute();
+
+            return $stmt;
         }
-        catch (PDOException $e) {
-            echo $e->getMessage();
-        }
+
         return null;
     }
 

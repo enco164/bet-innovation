@@ -32,9 +32,6 @@ class Login extends Controller
     {
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
-            // TODO: Proveri konekciju na bazu
-//            $this->forceDestroySession();
-
             $dsn = "pgsql:host=localhost;dbname=bet-innovation;user=".$_POST['username'].";password=".$_POST['password'];
             try {
                 $connection = new \PDO($dsn);

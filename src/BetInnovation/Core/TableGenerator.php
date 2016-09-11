@@ -44,13 +44,13 @@ class TableGenerator
                             <?php
                             if($header['native_type']==='timestamptz') {
                                 if($row[$header['name']]){
-                                    $date = new \DateTime($row[$header['name']]);
-                                    echo str_replace(' 00:00:00', '', $date->format("Y-m-d H:i:s"));
+//                                    $date = new \DateTime($row[$header['name']]);
+//                                    echo str_replace(' 00:00:00', '', $date->format("Y-m-d H:i:s"));
+                                    echo $row[$header['name']];
                                 }
 
                             }
                             else if($header['native_type']==='numeric') {
-                                //echo $row[$header['name']];
                                 echo number_format($row[$header['name']], 2, ',', '.');
                             }
                             else
